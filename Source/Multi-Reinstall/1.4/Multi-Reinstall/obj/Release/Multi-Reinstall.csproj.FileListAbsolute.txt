@@ -1,0 +1,7 @@
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\1.4\Assemblies\Multi-Reinstall.dll
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\Multi-Reinstall\obj\Release\Multi-Reinstall.csproj.AssemblyReference.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\Multi-Reinstall\obj\Release\Multi-Reinstall.csproj.CoreCompileInputs.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\Multi-Reinstall\obj\Release\Multi-Reinstall.dll
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\1.4\Multi-Reinstall\obj\Release\Multi-Reinstall.csproj.AssemblyReference.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\1.4\Multi-Reinstall\obj\Release\Multi-Reinstall.csproj.CoreCompileInputs.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\1.4\Multi-Reinstall\obj\Release\Multi-Reinstall.dll

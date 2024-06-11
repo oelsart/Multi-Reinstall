@@ -27,7 +27,7 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
         static MethodInfo TargetMethod()
         {
             return typeof(SmartDeconstructMod)
-                .GetNestedType("<>c__DisplayClass11_0", BindingFlags.NonPublic)
+                .GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic)
                 .GetMethod("<CheckForRoofsBeforeJob>b__0", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
@@ -37,7 +37,7 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
             int pos = codes.FindIndex(c => c.opcode == OpCodes.Ldnull);
             codes[pos] = CodeInstruction.LoadField(typeof(DesignationDefOf), nameof(DesignationDefOf.Deconstruct));
             codes[pos] = CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall");
-            codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass11_0", BindingFlags.NonPublic), "__instance"));
+            codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic), "__instance"));
             codes.Insert(pos, new CodeInstruction(OpCodes.Ldarg_0));
 
             pos = codes.FindLastIndex(c => c.opcode.Equals(OpCodes.Call) && (c.operand as MethodInfo).DeclaringType.Equals(typeof(JobMaker))) + 2;

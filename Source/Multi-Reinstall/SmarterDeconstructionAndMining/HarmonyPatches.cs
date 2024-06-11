@@ -50,10 +50,7 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
             };
             codes.InsertRange(pos, addCodes);
 
-            foreach (var code in codes)
-            {
-                yield return code;
-            }
+            return codes;
         }
 
         public static DesignationDef IsReinstall(JobDriver __instance)

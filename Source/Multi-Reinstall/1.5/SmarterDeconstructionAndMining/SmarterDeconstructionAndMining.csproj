@@ -17,11 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/SmarterDeconstructionAndMining/SmarterDeconstructionAndMining.csproj
     <OutputPath>..\..\..\..\1.5\SmarterDeconstructionAndMining\Assemblies\</OutputPath>
-========
-    <OutputPath>..\..\..\..\1.4\SmarterDeconstructionAndMining\Assemblies\</OutputPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/SmarterDeconstructionAndMining/SmarterDeconstructionAndMining.csproj
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
@@ -30,11 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/SmarterDeconstructionAndMining/SmarterDeconstructionAndMining.csproj
     <OutputPath>..\..\..\..\1.5\SmarterDeconstructionAndMining\Assemblies\</OutputPath>
-========
-    <OutputPath>..\..\..\..\1.4\SmarterDeconstructionAndMining\Assemblies\</OutputPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/SmarterDeconstructionAndMining/SmarterDeconstructionAndMining.csproj
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
@@ -42,19 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/SmarterDeconstructionAndMining/SmarterDeconstructionAndMining.csproj
       <HintPath>..\..\..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\1.5\Assembly-CSharp.dll</HintPath>
-========
-      <HintPath>..\..\..\..\..\..\..\..\workshop\content\294100\2009463077\1.4\Assemblies\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\1.4\Assembly-CSharp.dll</HintPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/SmarterDeconstructionAndMining/SmarterDeconstructionAndMining.csproj
       <Private>False</Private>
     </Reference>
     <Reference Include="SmartDeconstruct">

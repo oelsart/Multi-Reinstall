@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Verse;
-using MURWallLight;
-using UnityEngine;
 
 namespace MultiReinstall
 {

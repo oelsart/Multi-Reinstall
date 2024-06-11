@@ -1,4 +1,0 @@
-E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\1.4\WallLight\Assemblies\WallLightPatch.dll
-E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\WallLight\obj\Release\WallLight.csproj.AssemblyReference.cache
-E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\WallLight\obj\Release\WallLight.csproj.CoreCompileInputs.cache
-E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\WallLight\obj\Release\WallLightPatch.dll

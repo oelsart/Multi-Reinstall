@@ -18,16 +18,13 @@ namespace MultiReinstall
             blueprint_Install.PostPostMake();
             AccessTools.Method(typeof(Blueprint_Install2), "SetBuildingToReinstall").Invoke(blueprint_Install, BindingFlags.NonPublic, null, new object[] { buildingToReinstall }, null);
             blueprint_Install.SetFactionDirect(faction);
-            blueprint_Install.Rotation = rotation;
-            blueprint_Install.Position = center;
-            blueprint_Install.SpawnSetup(map, false);
+            GenSpawn.Spawn(blueprint_Install, center, map, rotation, WipeMode.Vanish, false, false);
             if (faction != null && sendBPSpawnedSignal)
             {
                 QuestUtility.SendQuestTargetSignals(faction.questTags, "PlacedBlueprint", blueprint_Install.Named("SUBJECT"));
             }
             return blueprint_Install;
         }
-
         public static AcceptanceReport CanPlaceBlueprintAt(BuildableDef entDef, IEnumerable<IntVec3> centerList, IEnumerable<Rot4> rotList, Map map, bool godMode = false, IEnumerable<Thing> thingToIgnoreList = null, Thing thing = null, ThingDef stuffDef = null, bool ignoreEdgeArea = false, bool ignoreInteractionSpots = false, bool ignoreClearableFreeBuildings = false)
         {
             var pos = thingToIgnoreList.FirstIndexOf(t => t == thing);
@@ -190,7 +187,7 @@ namespace MultiReinstall
                         {
                             Thing thing4 = thingList[m];
                             Building building;
-                            if (!thingToIgnoreList.Contains(thing4) && ((building = (thing4 as Building)) == null/* || !building.IsClearableFreeBuilding*/ || !ignoreClearableFreeBuildings) && !GenConstruct.CanPlaceBlueprintOver(entDef, thing4.def))
+                            if (!thingToIgnoreList.Contains(thing4) && ((building = (thing4 as Building)) == null || !building.IsClearableFreeBuilding || !ignoreClearableFreeBuildings) && !GenConstruct.CanPlaceBlueprintOver(entDef, thing4.def))
                             {
                                 return new AcceptanceReport("SpaceAlreadyOccupied".Translate());
                             }
@@ -202,7 +199,14 @@ namespace MultiReinstall
                     for (int n = 0; n < entDef.PlaceWorkers.Count; n++)
                     {
                         AcceptanceReport result;
-                        result = thingToIgnoreList.Select(t => entDef.PlaceWorkers[n].AllowsPlacing(entDef, center, rot, map, t, thing)).FirstOrFallback(a => a == AcceptanceReport.WasRejected, AcceptanceReport.WasAccepted);
+                        if (entDef.PlaceWorkers[n] is Placeworker_AttachedToWall)
+                        {
+                            result = Multi_GenConstruct.AllowsPlacing(entDef, centerList, rotList, map, thingToIgnoreList, thing);
+                        }
+                        else
+                        {
+                            result = thingToIgnoreList.Select(t => entDef.PlaceWorkers[n].AllowsPlacing(entDef, center, rot, map, t, thing)).FirstOrFallback(a => a == AcceptanceReport.WasRejected, AcceptanceReport.WasAccepted);
+                        }
                         if (!result.Accepted)
                         {
                             return result;
@@ -255,6 +259,68 @@ namespace MultiReinstall
                 return true;
             }
             return true;
+        }
+
+        public static AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IEnumerable<IntVec3> locList, IEnumerable<Rot4> rotList, Map map, IEnumerable<Thing> thingToIgnoreList = null, Thing thing = null)
+        {
+            var pos = thingToIgnoreList.FirstIndexOf(t => t == thing);
+            var loc = locList.ElementAt(pos);
+            var rot = rotList.ElementAt(pos);
+
+            IEnumerable<Thing> thingList = loc.GetThingList(map);
+            for (int i = 0; i < thingList.Count(); i++)
+            {
+                Thing thing2 = thingList.ElementAt(i);
+                ThingDef thingDef = GenConstruct.BuiltDefOf(thing2.def) as ThingDef;
+                if (thingDef?.building != null)
+                {
+                    if (thingDef.Fillage == FillCategory.Full)
+                    {
+                        return false;
+                    }
+                    if (thingDef.building.isAttachment && thing2.Rotation == rot)
+                    {
+                        return "SomethingPlacedOnThisWall".Translate();
+                    }
+                }
+            }
+            IntVec3 c = loc + GenAdj.CardinalDirections[rot.AsInt];
+            if (!c.InBounds(map))
+            {
+                return false;
+            }
+
+            IEnumerable<Thing> virtualThingList = thingToIgnoreList.Select((t, i) =>
+            {
+                return new Thing()
+                {
+                    def = t.def,
+                    Position = locList.ElementAt(i),
+                    Rotation = rotList.ElementAt(i)
+                };
+            });
+            thingList = c.GetThingList(map).Except(thingToIgnoreList).Concat(virtualThingList);
+            bool flag = false;
+            for (int j = 0; j < thingList.Count(); j++)
+            {
+                ThingDef thingDef2 = GenConstruct.BuiltDefOf(thingList.ElementAt(j).def) as ThingDef;
+                if (thingDef2 != null && thingDef2.building != null)
+                {
+                    if (!thingDef2.building.supportsWallAttachments)
+                    {
+                        flag = true;
+                    }
+                    else if (thingDef2.Fillage == FillCategory.Full)
+                    {
+                        return true;
+                    }
+                }
+            }
+            if (flag)
+            {
+                return "CannotSupportAttachment".Translate();
+            }
+            return "MustPlaceOnWall".Translate();
         }
     }
 }

@@ -93,7 +93,7 @@ namespace MultiReinstall
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Text.Font = GameFont.Medium;
                 Rect rect = new Rect(winRect.width / 2f - 64f - 5f, 15f, 64f, 64f);
-                if (Widgets.ButtonImage(rect, TexUI.RotLeftTex, true))
+                if (Widgets.ButtonImage(rect, TexUI.RotLeftTex, true, null))
                 {
                     SoundDefOf.DragSlider.PlayOneShotOnCamera(null);
                     rotationDirection = RotationDirection.Counterclockwise;
@@ -104,7 +104,7 @@ namespace MultiReinstall
                     Widgets.Label(rect, KeyBindingDefOf.Designator_RotateLeft.MainKeyLabel);
                 }
                 Rect rect2 = new Rect(winRect.width / 2f + 5f, 15f, 64f, 64f);
-                if (Widgets.ButtonImage(rect2, TexUI.RotRightTex, true))
+                if (Widgets.ButtonImage(rect2, TexUI.RotRightTex, true, null))
                 {
                     SoundDefOf.DragSlider.PlayOneShotOnCamera(null);
                     rotationDirection = RotationDirection.Clockwise;
@@ -183,11 +183,11 @@ namespace MultiReinstall
             return rot;
         }
 
-        public IEnumerable<Building> cachedBuildings;
+        private IEnumerable<Building> cachedBuildings;
 
-        public List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
+        private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 
-        public List<Rot4> cachedBuildingRotations = new List<Rot4>();
+        private List<Rot4> cachedBuildingRotations = new List<Rot4>();
 
         private float middleMouseDownTime;
 

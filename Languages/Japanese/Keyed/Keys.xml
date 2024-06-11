@@ -2,5 +2,7 @@
 <LanguageData>
 
   <CommandMultiReinstall>まとめて再展開</CommandMultiReinstall>
+  
+  <MR.HoldShiftToFlip>Shiftキーで反転</MR.HoldShiftToFlip>
 
 </LanguageData>

@@ -50,7 +50,7 @@ namespace MultiReinstall
 
         public override AcceptanceReport CanDesignateCell(IntVec3 c)
         {
-            if (!canDesignate) return cachedBuildings.Select((b, i) => Multi_GenConstruct.CanPlaceBlueprintAt(b.def, cachedBuildingPositions.Select(p => p + c), cachedBuildingRotations, Map, false, cachedBuildings, b)).First(a => a == AcceptanceReport.WasRejected);
+            if (!canDesignate) return cachedBuildings.Select((b, i) => Multi_GenConstruct.CanPlaceBlueprintAt(b.def, cachedBuildingPositions.Select((p, j) => c + FlipPos(j)), cachedBuildingRotations.Select((r, j) => FlipRot(j)), Map, false, cachedBuildings, b)).First(a => a == AcceptanceReport.WasRejected);
             return canDesignate;
         }
 
@@ -58,7 +58,7 @@ namespace MultiReinstall
         {
             for (var i = 0; i < cachedBuildings.Count(); i++)
             {
-                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + cachedBuildingPositions[i], Map, cachedBuildingRotations[i], Faction.OfPlayer);
+                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + FlipPos(i), Map, FlipRot(i), Faction.OfPlayer);
                 if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining"))
                     Map.designationManager.AddDesignation(new Designation(cachedBuildings.ElementAt(i), DesignationDefOf.Uninstall));
             }
@@ -73,18 +73,18 @@ namespace MultiReinstall
             {
                 Color ghostCol = Designator_Place.CanPlaceColor;
                 var building = cachedBuildings.ElementAt(i);
-                if (Multi_GenConstruct.CanPlaceBlueprintAt(building.def, cachedBuildingPositions.Select(p => p + center), cachedBuildingRotations, Map, false, cachedBuildings, building) == AcceptanceReport.WasRejected)
+                if (Multi_GenConstruct.CanPlaceBlueprintAt(building.def, cachedBuildingPositions.Select((p, j) => center + FlipPos(j)), cachedBuildingRotations.Select((r, j) => FlipRot(j)), Map, false, cachedBuildings, building) == AcceptanceReport.WasRejected)
                 {
                     ghostCol = Designator_Place.CannotPlaceColor;
                     canDesignate = false;
                 }
-                GhostDrawer.DrawGhostThing(cachedBuildingPositions[i] + center, cachedBuildingRotations[i], building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
+                GhostDrawer.DrawGhostThing(center + FlipPos(i), FlipRot(i), building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
             }
         }
 
         public override void DoExtraGuiControls(float leftX, float bottomY)
         {
-            Rect winRect = new Rect(leftX, bottomY - 90f, 200f, 90f);
+            Rect winRect = new Rect(leftX, bottomY - 120f, 200f, 120f);
             this.HandleRotationShortcuts();
 
             Find.WindowStack.ImmediateWindow(73095, winRect, WindowLayer.GameUI, delegate
@@ -118,6 +118,7 @@ namespace MultiReinstall
                 {
                     this.Rotate(rotationDirection);
                 }
+                Widgets.Label(new Rect(0f, winRect.height - 38f, winRect.width, 30f), "MR.HoldShiftToFlip".Translate());
                 Text.Anchor = TextAnchor.UpperLeft;
                 Text.Font = GameFont.Small;
             }, true, false, 1f, null);
@@ -160,6 +161,26 @@ namespace MultiReinstall
                 if (cachedBuildings.ElementAt(i).def.rotatable) return r.Rotated(rotDir);
                 return r;
             }).ToList();
+        }
+
+        private IntVec3 FlipPos(int index)
+        {
+            var pos = cachedBuildingPositions[index];
+            if (Event.current.shift)
+            {
+                pos.x = - pos.x + (cachedBuildings.ElementAt(index).def.Size.x % 2) - 1;
+            }
+            return pos;
+        }
+
+        private Rot4 FlipRot(int index)
+        {
+            var rot = cachedBuildingRotations[index];
+            if (Event.current.shift && rot.IsHorizontal)
+            {
+                rot = rot.Opposite;
+            }
+            return rot;
         }
 
         private IEnumerable<Building> cachedBuildings;

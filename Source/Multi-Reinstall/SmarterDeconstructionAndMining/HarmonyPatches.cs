@@ -38,14 +38,15 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
             codes[pos] = CodeInstruction.LoadField(typeof(DesignationDefOf), nameof(DesignationDefOf.Deconstruct));
             codes[pos] = CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall");
             codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic), "__instance"));
-            codes.Insert(pos, new CodeInstruction(OpCodes.Ldarg_0));
+            codes.Insert(pos, CodeInstruction.LoadArgument(0));
 
-            pos = codes.FindLastIndex(c => c.opcode.Equals(OpCodes.Call) && (c.operand as MethodInfo).DeclaringType.Equals(typeof(JobMaker))) + 2;
+            pos = codes.FindIndex(c => c.opcode.Equals(OpCodes.Stloc_S) && (c.operand as LocalBuilder).LocalIndex.Equals(9)) + 1;
             var addCodes = new List<CodeInstruction>()
             {
-                new CodeInstruction(OpCodes.Ldloc_3),
+                CodeInstruction.LoadLocal(9),
                 new CodeInstruction(OpCodes.Ldc_I4_1),
-                CodeInstruction.StoreField(typeof(Job), "count")
+                CodeInstruction.Call(typeof(JobMaker), "WithCount"),
+                CodeInstruction.StoreLocal(9)
             };
             codes.InsertRange(pos, addCodes);
 

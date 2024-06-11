@@ -3,9 +3,6 @@
   "WorkspaceRootPath": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|WallLight||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Multi-Reinstall||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
@@ -36,13 +33,10 @@
       "RelativeMoniker": "D:0:0:{C376CDFE-78D1-4662-9B30-ACDD4E9D2388}|Multi-Reinstall\\Multi-Reinstall.csproj|solutionrelative:multi-reinstall\\multi_genconstruct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D8341413-732C-497E-B72A-B3D74554687D}|WallLight\\WallLight.csproj|e:\\program files (x86)\\steam\\steamapps\\common\\rimworld\\mods\\multi-reinstallexperimental\\source\\multi-reinstall\\walllight\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
+      "AbsoluteMoniker": "D:0:0:{E46AE7A2-A4EB-4479-A479-92A4C748B9D3}|SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj|e:\\program files (x86)\\steam\\steamapps\\common\\rimworld\\mods\\multi-reinstallexperimental\\source\\multi-reinstall\\smarterdeconstructionandmining\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C376CDFE-78D1-4662-9B30-ACDD4E9D2388}|Multi-Reinstall\\Multi-Reinstall.csproj|e:\\program files (x86)\\steam\\steamapps\\common\\rimworld\\mods\\multi-reinstallexperimental\\source\\multi-reinstall\\multi-reinstall\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E46AE7A2-A4EB-4479-A479-92A4C748B9D3}|SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj|e:\\program files (x86)\\steam\\steamapps\\common\\rimworld\\mods\\multi-reinstallexperimental\\source\\multi-reinstall\\smarterdeconstructionandmining\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -60,31 +54,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WallLight",
-              "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\WallLight\\WallLight.csproj",
-              "RelativeDocumentMoniker": "WallLight\\WallLight.csproj",
-              "ToolTip": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\WallLight\\WallLight.csproj",
-              "RelativeToolTip": "WallLight\\WallLight.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-11T14:11:45.252Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "SmarterDeconstructionAndMining",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj",
               "RelativeDocumentMoniker": "SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj",
-              "ToolTip": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj*",
-              "RelativeToolTip": "SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj*",
+              "ToolTip": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj",
+              "RelativeToolTip": "SmarterDeconstructionAndMining\\SmarterDeconstructionAndMining.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-06-11T05:05:12.461Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Multi-Reinstall",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\Multi-Reinstall\\Multi-Reinstall.csproj",
               "RelativeDocumentMoniker": "Multi-Reinstall\\Multi-Reinstall.csproj",
@@ -96,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "Multi_GenConstruct.cs",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\Multi-Reinstall\\Multi_GenConstruct.cs",
               "RelativeDocumentMoniker": "Multi-Reinstall\\Multi_GenConstruct.cs",
@@ -108,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "HarmonyPatches.cs",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\SmarterDeconstructionAndMining\\HarmonyPatches.cs",
               "RelativeDocumentMoniker": "SmarterDeconstructionAndMining\\HarmonyPatches.cs",
@@ -120,7 +102,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Blueprint_Install2.cs",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\Multi-Reinstall\\Blueprint_Install2.cs",
               "RelativeDocumentMoniker": "Multi-Reinstall\\Blueprint_Install2.cs",
@@ -132,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Designator_SelectToMultiReinstall.cs",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\Multi-Reinstall\\Designator_SelectToMultiReinstall.cs",
               "RelativeDocumentMoniker": "Multi-Reinstall\\Designator_SelectToMultiReinstall.cs",
@@ -144,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Designator_MultiReinstall.cs",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\Multi-Reinstall\\Designator_MultiReinstall.cs",
               "RelativeDocumentMoniker": "Multi-Reinstall\\Designator_MultiReinstall.cs",
@@ -156,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "HarmonyPatches.cs",
               "DocumentMoniker": "E:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Multi-ReinstallExperimental\\Source\\Multi-Reinstall\\Multi-Reinstall\\HarmonyPatches.cs",
               "RelativeDocumentMoniker": "Multi-Reinstall\\HarmonyPatches.cs",

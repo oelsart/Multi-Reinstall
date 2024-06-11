@@ -2,4 +2,4 @@
 # この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
 ################################################################################
 
-/Source/Multi-Reinstall/.vs/Multi-Reinstall/FileContentIndex
+/Source/Multi-Reinstall/.vs/

@@ -27,7 +27,7 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
         static MethodInfo TargetMethod()
         {
             return typeof(SmartDeconstructMod)
-                .GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic)
+                .GetNestedType("<>c__DisplayClass11_0", BindingFlags.NonPublic)
                 .GetMethod("<CheckForRoofsBeforeJob>b__0", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
@@ -37,16 +37,15 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
             int pos = codes.FindIndex(c => c.opcode == OpCodes.Ldnull);
             codes[pos] = CodeInstruction.LoadField(typeof(DesignationDefOf), nameof(DesignationDefOf.Deconstruct));
             codes[pos] = CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall");
-            codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic), "__instance"));
-            codes.Insert(pos, CodeInstruction.LoadArgument(0));
+            codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass11_0", BindingFlags.NonPublic), "__instance"));
+            codes.Insert(pos, new CodeInstruction(OpCodes.Ldarg_0));
 
-            pos = codes.FindIndex(c => c.opcode.Equals(OpCodes.Stloc_S) && (c.operand as LocalBuilder).LocalIndex.Equals(9)) + 1;
+            pos = codes.FindLastIndex(c => c.opcode.Equals(OpCodes.Call) && (c.operand as MethodInfo).DeclaringType.Equals(typeof(JobMaker))) + 2;
             var addCodes = new List<CodeInstruction>()
             {
-                CodeInstruction.LoadLocal(9),
+                new CodeInstruction(OpCodes.Ldloc_3),
                 new CodeInstruction(OpCodes.Ldc_I4_1),
-                CodeInstruction.Call(typeof(JobMaker), "WithCount"),
-                CodeInstruction.StoreLocal(9)
+                CodeInstruction.StoreField(typeof(Job), "count")
             };
             codes.InsertRange(pos, addCodes);
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E46AE7A2-A4EB-4479-A479-92A4C748B9D3}</ProjectGuid>
+    <ProjectGuid>{D8341413-732C-497E-B72A-B3D74554687D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MultiReinstall.SmarterDeconstructionAndMiningPatch</RootNamespace>
-    <AssemblyName>SmarterDeconstructionAndMiningPatch</AssemblyName>
+    <RootNamespace>MultiReinstall.WallLightPatch</RootNamespace>
+    <AssemblyName>WallLightPatch</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\1.4\SmarterDeconstructionAndMining\Assemblies\</OutputPath>
+    <OutputPath>..\..\..\1.4\WallLight\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\1.5\SmarterDeconstructionAndMining\Assemblies\</OutputPath>
+    <OutputPath>..\..\..\1.4\WallLight\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,11 +36,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\1.4\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SmartDeconstruct">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\3261302741\1.5\Assemblies\SmartDeconstruct.dll</HintPath>
+    <Reference Include="Multi-Reinstall">
+      <HintPath>..\..\..\1.4\Assemblies\Multi-Reinstall.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -51,16 +51,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    <Reference Include="WallLight">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\1423699208\1.4\Assemblies\WallLight.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

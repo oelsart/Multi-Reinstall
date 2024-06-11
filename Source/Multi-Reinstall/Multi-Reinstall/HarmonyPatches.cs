@@ -40,8 +40,8 @@ namespace MultiReinstall
             var pos = codes.FindIndex(c => c.opcode.Equals(OpCodes.Ldsfld) && (c.operand as FieldInfo).GetValue(typeof(JobDefOf)).Equals(JobDefOf.Deconstruct));
 
             codes.Replace(codes[pos], CodeInstruction.Call(typeof(GenConstruct_HandleBlockingThingJob_Patch), "ModeSelect"));
-            codes.Insert(pos, CodeInstruction.LoadLocal(0));
-            codes.Insert(pos, CodeInstruction.LoadArgument(0));
+            codes.Insert(pos, new CodeInstruction(OpCodes.Ldloc_0));
+            codes.Insert(pos, new CodeInstruction(OpCodes.Ldarg_0));
 
             foreach (var code in codes)
             {

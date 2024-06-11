@@ -3,6 +3,7 @@
     <li>/</li>
     <li>1.4</li>
     <li IfModActive="Mlie.SmarterDeconstructionAndMining">1.4/SmarterDeconstructionAndMining</li>
+    <li IfModActive="Murmur.WallLight">1.4/WallLight</li>
   </v1.4>
   <v1.5>
     <li>/</li>

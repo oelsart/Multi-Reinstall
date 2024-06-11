@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Verse;
 using MURWallLight;
+using UnityEngine;
 
 namespace MultiReinstall
 {
@@ -19,13 +20,16 @@ namespace MultiReinstall
             blueprint_Install.PostPostMake();
             AccessTools.Method(typeof(Blueprint_Install2), "SetBuildingToReinstall").Invoke(blueprint_Install, BindingFlags.NonPublic, null, new object[] { buildingToReinstall }, null);
             blueprint_Install.SetFactionDirect(faction);
-            GenSpawn.Spawn(blueprint_Install, center, map, rotation, WipeMode.Vanish);
+            blueprint_Install.Rotation = rotation;
+            blueprint_Install.Position = center;
+            blueprint_Install.SpawnSetup(map, false);
             if (faction != null && sendBPSpawnedSignal)
             {
                 QuestUtility.SendQuestTargetSignals(faction.questTags, "PlacedBlueprint", blueprint_Install.Named("SUBJECT"));
             }
             return blueprint_Install;
         }
+
         public static AcceptanceReport CanPlaceBlueprintAt(BuildableDef entDef, IEnumerable<IntVec3> centerList, IEnumerable<Rot4> rotList, Map map, bool godMode = false, IEnumerable<Thing> thingToIgnoreList = null, Thing thing = null, ThingDef stuffDef = null, bool ignoreEdgeArea = false, bool ignoreInteractionSpots = false, bool ignoreClearableFreeBuildings = false)
         {
             var pos = thingToIgnoreList.FirstIndexOf(t => t == thing);

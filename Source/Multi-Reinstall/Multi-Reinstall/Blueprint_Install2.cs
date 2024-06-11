@@ -1,4 +1,7 @@
-﻿using RimWorld;
+﻿using HarmonyLib;
+using RimWorld;
+using System.Reflection;
+using Verse;
 
 namespace MultiReinstall
 {

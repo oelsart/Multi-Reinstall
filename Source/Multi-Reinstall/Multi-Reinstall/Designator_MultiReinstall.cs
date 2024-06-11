@@ -6,6 +6,7 @@ using RimWorld;
 using Verse.Sound;
 using Verse.Steam;
 using HarmonyLib;
+using MURWallLight;
 
 namespace MultiReinstall
 {
@@ -51,7 +52,6 @@ namespace MultiReinstall
 
         public override AcceptanceReport CanDesignateCell(IntVec3 c)
         {
-            if (!canDesignate) return cachedBuildings.Select((b, i) => Multi_GenConstruct.CanPlaceBlueprintAt(b.def, cachedBuildingPositions.Select((p, j) => c + FlipPos(j)), cachedBuildingRotations.Select((r, j) => FlipRot(j)), Map, false, cachedBuildings, b)).First(a => a == AcceptanceReport.WasRejected);
             return canDesignate;
         }
 
@@ -69,15 +69,16 @@ namespace MultiReinstall
         public override void SelectedUpdate()
         {
             IntVec3 center = UI.MouseCell();
-            canDesignate = true;
+            canDesignate = AcceptanceReport.WasAccepted;
             for (var i = 0; i < cachedBuildings.Count(); i++)
             {
                 Color ghostCol = Designator_Place.CanPlaceColor;
                 var building = cachedBuildings.ElementAt(i);
-                if (Multi_GenConstruct.CanPlaceBlueprintAt(building.def, cachedBuildingPositions.Select((p, j) => center + FlipPos(j)), cachedBuildingRotations.Select((r, j) => FlipRot(j)), Map, false, cachedBuildings, building) == AcceptanceReport.WasRejected)
+                AcceptanceReport result;
+                if ((result = Multi_GenConstruct.CanPlaceBlueprintAt(building.def, cachedBuildingPositions.Select((p, j) => center + FlipPos(j)), cachedBuildingRotations.Select((r, j) => FlipRot(j)), Map, false, cachedBuildings, building)) == AcceptanceReport.WasRejected)
                 {
                     ghostCol = Designator_Place.CannotPlaceColor;
-                    canDesignate = false;
+                    canDesignate = result;
                 }
                 GhostDrawer.DrawGhostThing(center + FlipPos(i), FlipRot(i), building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
             }
@@ -184,11 +185,11 @@ namespace MultiReinstall
             return rot;
         }
 
-        private IEnumerable<Building> cachedBuildings;
+        public IEnumerable<Building> cachedBuildings;
 
-        private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
+        public List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 
-        private List<Rot4> cachedBuildingRotations = new List<Rot4>();
+        public List<Rot4> cachedBuildingRotations = new List<Rot4>();
 
         private float middleMouseDownTime;
 

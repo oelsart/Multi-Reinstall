@@ -43,16 +43,37 @@ namespace MultiReinstall
             codes.Insert(pos, new CodeInstruction(OpCodes.Ldloc_0));
             codes.Insert(pos, new CodeInstruction(OpCodes.Ldarg_0));
 
-            foreach (var code in codes)
-            {
-                yield return code;
-            }
+            return codes;
         }
 
         public static JobDef ModeSelect(Thing constructible, Thing thing)
         {
             if (thing.def.Minifiable && constructible is Blueprint_Install2) return JobDefOf.Uninstall;
             return JobDefOf.Deconstruct;
+        }
+    }
+
+    [HarmonyPatch(typeof(PlaceWorker_Conduit), "AllowsPlacing")]
+    public static class PlaceWorker_Conduit_AllowsPlacing_Patch
+    {
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = instructions.ToList();
+            int pos = codes.FindIndex(c => c.opcode == OpCodes.Call && (c.operand as MethodInfo).DeclaringType == typeof(GridsUtility)) + 1;
+            codes.Insert(pos, CodeInstruction.Call(typeof(PlaceWorker_Conduit_AllowsPlacing_Patch), "AddIgnoreThingList"));
+
+            return codes;
+        }
+
+        public static List<Thing> AddIgnoreThingList(IEnumerable<Thing> thingList)
+        {
+            Designator designator;
+            if ((designator = Find.DesignatorManager.SelectedDesignator) is Designator_MultiReinstall)
+            {
+                Designator_MultiReinstall designator_MultiReinstall = designator as Designator_MultiReinstall;
+                thingList = thingList.Except(designator_MultiReinstall.cachedBuildings);
+            }
+            return thingList.ToList();
         }
     }
 }

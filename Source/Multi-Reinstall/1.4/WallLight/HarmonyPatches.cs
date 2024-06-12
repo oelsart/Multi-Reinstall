@@ -60,7 +60,6 @@ namespace MultiReinstall.WallLightPatch
                             Rotation = designator_MultiReinstall.flippedRotations[i]
                         };
                     });
-                foreach (var b in designator_MultiReinstall.cachedBuildings) Log.Message(b.ToString());
                 thingList = thingList.Except(designator_MultiReinstall.cachedBuildings).Concat(virtualThingList);
             }
             return thingList.ToList();

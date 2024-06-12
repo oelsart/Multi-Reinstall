@@ -24,6 +24,52 @@ namespace MultiReinstall
 
         public override int DraggableDimensions => 2;
 
+        private List<IntVec3> OffsetPos
+        {
+            get
+            {
+                return cachedBuildings.Select((building, i) =>
+                {
+                    var pos = cachedBuildingPositions[i];
+                    if (!building.def.rotatable)
+                    {
+                        if (globalRot == Rot4.West || globalRot == Rot4.South) pos.x -= (building.def.Size.x - 1) % 2;
+                        if (globalRot == Rot4.South || globalRot == Rot4.East) pos.z -= (building.def.Size.z - 1) % 2;
+                    }
+
+                    if (Event.current.shift)
+                    {
+                        pos.x = -pos.x;
+                        if (!building.def.rotatable)
+                        {
+                            pos.x -= (building.def.Size.x - 1) % 2;
+                        }
+                        else
+                        {
+                            pos.x -= (globalRot.AsInt - 2) % 2 * (building.def.Size.x - 1) % 2;
+                            pos.z += (globalRot.AsInt - 1) % 2 * (building.def.Size.z - 1) % 2;
+                        }
+                    }
+                    return pos;
+                }).ToList();
+            }
+        }
+
+        private List<Rot4> FlipRot
+        {
+            get
+            {
+                return cachedBuildingRotations.Select((rot, i) =>
+                {
+                    if (Event.current.shift && rot.IsHorizontal && cachedBuildings.ElementAt(i).def.rotatable)
+                    {
+                        rot = rot.Opposite;
+                    }
+                    return rot;
+                }).ToList();
+            }
+        }
+
         public Designator_MultiReinstall()
         {
             this.defaultLabel = "CommandMultiReinstall".Translate();
@@ -59,7 +105,7 @@ namespace MultiReinstall
         {
             for (var i = 0; i < cachedBuildings.Count(); i++)
             {
-                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + FlipPos(i), Map, FlipRot(i), Faction.OfPlayer);
+                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + offsetPositions[i], Map, flippedRotations[i], Faction.OfPlayer);
                 if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining"))
                     Map.designationManager.AddDesignation(new Designation(cachedBuildings.ElementAt(i), DesignationDefOf.Uninstall));
             }
@@ -70,17 +116,20 @@ namespace MultiReinstall
         {
             IntVec3 center = UI.MouseCell();
             canDesignate = AcceptanceReport.WasAccepted;
+
+            offsetPositions = OffsetPos;
+            flippedRotations = FlipRot;
             for (var i = 0; i < cachedBuildings.Count(); i++)
             {
                 Color ghostCol = Designator_Place.CanPlaceColor;
                 var building = cachedBuildings.ElementAt(i);
                 AcceptanceReport result;
-                if ((result = Multi_GenConstruct.CanPlaceBlueprintAt(building.def, cachedBuildingPositions.Select((p, j) => center + FlipPos(j)), cachedBuildingRotations.Select((r, j) => FlipRot(j)), Map, false, cachedBuildings, building)) == AcceptanceReport.WasRejected)
+                if ((result = Multi_GenConstruct.CanPlaceBlueprintAt(building.def, offsetPositions.Select((p, j) => center + p), flippedRotations, Map, false, cachedBuildings, building)) == AcceptanceReport.WasRejected)
                 {
                     ghostCol = Designator_Place.CannotPlaceColor;
                     canDesignate = result;
                 }
-                GhostDrawer.DrawGhostThing(center + FlipPos(i), FlipRot(i), building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
+                GhostDrawer.DrawGhostThing(center + offsetPositions[i], flippedRotations[i], building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
             }
         }
 
@@ -165,31 +214,17 @@ namespace MultiReinstall
             }).ToList();
         }
 
-        private IntVec3 FlipPos(int index)
-        {
-            var pos = cachedBuildingPositions[index];
-            if (Event.current.shift)
-            {
-                pos.x = - pos.x + (cachedBuildings.ElementAt(index).def.Size.x % 2) - 1;
-            }
-            return pos;
-        }
-
-        private Rot4 FlipRot(int index)
-        {
-            var rot = cachedBuildingRotations[index];
-            if (Event.current.shift && rot.IsHorizontal)
-            {
-                rot = rot.Opposite;
-            }
-            return rot;
-        }
-
         public IEnumerable<Building> cachedBuildings;
 
-        public List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
+        private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 
-        public List<Rot4> cachedBuildingRotations = new List<Rot4>();
+        public List<IntVec3> offsetPositions = new List<IntVec3>();
+
+        private List<Rot4> cachedBuildingRotations = new List<Rot4>();
+
+        public List<Rot4> flippedRotations = new List<Rot4>();
+
+        private Rot4 globalRot = Rot4.North;
 
         private float middleMouseDownTime;
 

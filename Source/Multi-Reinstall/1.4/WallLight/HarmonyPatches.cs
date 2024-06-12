@@ -52,8 +52,8 @@ namespace MultiReinstall.WallLightPatch
                         return new Thing()
                         {
                             def = b.def,
-                            Position = designator_MultiReinstall.cachedBuildingPositions[i],
-                            Rotation = designator_MultiReinstall.cachedBuildingRotations[i]
+                            Position = designator_MultiReinstall.offsetPositions[i],
+                            Rotation = designator_MultiReinstall.flippedRotations[i]
                         };
                     });
                 thingList = thingList.Concat(virtualThingList);

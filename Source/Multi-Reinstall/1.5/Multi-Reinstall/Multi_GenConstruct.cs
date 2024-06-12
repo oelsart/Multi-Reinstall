@@ -267,7 +267,7 @@ namespace MultiReinstall
             var loc = locList.ElementAt(pos);
             var rot = rotList.ElementAt(pos);
 
-            IEnumerable<Thing> thingList = loc.GetThingList(map);
+            IEnumerable<Thing> thingList = loc.GetThingList(map).Except(thingToIgnoreList);
             for (int i = 0; i < thingList.Count(); i++)
             {
                 Thing thing2 = thingList.ElementAt(i);

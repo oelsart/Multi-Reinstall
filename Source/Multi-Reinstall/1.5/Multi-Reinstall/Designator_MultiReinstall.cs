@@ -105,8 +105,8 @@ namespace MultiReinstall
             for (var i = 0; i < cachedBuildings.Count(); i++)
             {
                 Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + offsetPositions[i], Map, flippedRotations[i], Faction.OfPlayer);
-                if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining") && cachedBuildings.ElementAt(i).def.holdsRoof)
-                    Map.designationManager.AddDesignation(new Designation(cachedBuildings.ElementAt(i), DesignationDefOf.Uninstall));
+                if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining") && cachedBuildings.ElementAt(i).def.IsEdifice())
+                    Map.designationManager.AddDesignation(new Designation(cachedBuildings.ElementAt(i), DesignationDefOf.Haul));
             }
             Find.DesignatorManager.Deselect();
         }

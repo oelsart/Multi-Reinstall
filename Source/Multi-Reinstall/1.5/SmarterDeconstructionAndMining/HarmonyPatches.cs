@@ -62,8 +62,8 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
 
         public static DesignationDef IsReinstall(JobDriver __instance)
         {
-            if (__instance.GetType() == typeof(JobDriver_Uninstall)) return DesignationDefOf.Uninstall;
-            if (__instance is JobDriver_HaulToContainer) return DesignationDefOf.Uninstall;
+            if (__instance.GetType() == typeof(JobDriver_Uninstall)) return DesignationDefOf.Haul;
+            if (__instance is JobDriver_HaulToContainer) return DesignationDefOf.Haul;
             if (__instance is JobDriver_Mine) return DesignationDefOf.Mine;
             if (__instance is JobDriver_Deconstruct) return DesignationDefOf.Deconstruct;
             return null;

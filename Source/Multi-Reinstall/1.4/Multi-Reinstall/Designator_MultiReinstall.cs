@@ -183,7 +183,7 @@ namespace MultiReinstall
             return rot;
         }
 
-        private IEnumerable<Building> cachedBuildings;
+        public IEnumerable<Building> cachedBuildings;
 
         private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 

@@ -214,7 +214,7 @@ namespace MultiReinstall
             globalRot = globalRot.Rotated(rotDir);
         }
 
-        private IEnumerable<Building> cachedBuildings;
+        public IEnumerable<Building> cachedBuildings;
 
         private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 

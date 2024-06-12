@@ -23,5 +23,7 @@
   <loadAfter>
     <li>brrainz.harmony</li>
     <li>Ludeon.Rimworld</li>
+    <li>Mlie.SmarterDeconstructionAndMining</li>
+    <li>Murmur.WallLight</li>
   </loadAfter>
 </ModMetaData>

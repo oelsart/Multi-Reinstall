@@ -20,15 +20,19 @@ namespace MultiReinstall.WallLightPatch
     {
         static HarmonyPatches()
         {
+            var harmony = new Harmony("com.harmony.rimworld.multireinstall.walllightpatch");
+            HarmonyMethod harmonyMethod = new HarmonyMethod(typeof(PlaceWorker_WallLight_AllowsPlacing_Patch), "Transpiler");
+            HarmonyMethod harmonyMethod2 = new HarmonyMethod(typeof(CompMountableWall_PostDeSpawn_Patch), "Prefix");
+            HarmonyMethod harmonyMethod3 = new HarmonyMethod(typeof(CompMountableWall_PostDeSpawn_Patch), "Transpiler");
+            harmony.Patch(AccessTools.Method(typeof(PlaceWorker_WallLight), "AllowsPlacing", null, null), null, null, harmonyMethod, null);
             if (ModsConfig.IsActive("erdelf.MinifyEverything"))
             {
-                var harmony = new Harmony("com.harmony.rimworld.multireinstall.walllightpatch");
-                harmony.PatchAll(Assembly.GetExecutingAssembly());
+                harmony.Patch(AccessTools.Method(typeof(CompMountableWall), "PostDeSpawn", null, null), harmonyMethod2, null, null, null);
+                harmony.Patch(AccessTools.Method(typeof(CompMountableWall), "PostDeSpawn", null, null), null, null, harmonyMethod3, null);
             }
         }
     }
 
-    [HarmonyPatch(typeof(PlaceWorker_WallLight), nameof(PlaceWorker_WallLight.AllowsPlacing))]
     public static class PlaceWorker_WallLight_AllowsPlacing_Patch
     {
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -56,13 +60,13 @@ namespace MultiReinstall.WallLightPatch
                             Rotation = designator_MultiReinstall.flippedRotations[i]
                         };
                     });
-                thingList = thingList.Concat(virtualThingList);
+                foreach (var b in designator_MultiReinstall.cachedBuildings) Log.Message(b.ToString());
+                thingList = thingList.Except(designator_MultiReinstall.cachedBuildings).Concat(virtualThingList);
             }
             return thingList.ToList();
         }
     }
 
-    [HarmonyPatch(typeof(CompMountableWall), "PostDeSpawn")]
     public static class  CompMountableWall_PostDeSpawn_Patch
     {
         public static void Prefix(Map map, CompMountableWall __instance)

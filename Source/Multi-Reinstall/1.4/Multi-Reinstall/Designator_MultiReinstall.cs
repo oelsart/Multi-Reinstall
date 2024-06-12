@@ -212,6 +212,7 @@ namespace MultiReinstall
                 if (cachedBuildings.ElementAt(i).def.rotatable) return r.Rotated(rotDir);
                 return r;
             }).ToList();
+            globalRot = globalRot.Rotated(rotDir);
         }
 
         public IEnumerable<Building> cachedBuildings;

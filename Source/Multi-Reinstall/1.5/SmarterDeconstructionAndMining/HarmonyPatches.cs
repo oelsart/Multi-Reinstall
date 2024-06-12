@@ -32,23 +32,17 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
                 .GetMethod("<CheckForRoofsBeforeJob>b__0", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
-        public static IEnumerable<CodeInstruction> Transpiler (IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> codes = instructions.ToList();
-            int pos = codes.FindIndex(c => c.opcode == OpCodes.Stfld && (c.operand as FieldInfo).FieldType == typeof(DesignationDef)) + 2;
-
-            var addCodes = new List<CodeInstruction>()
-            {
-                CodeInstruction.LoadArgument(0),
-                CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic), "__instance"),
-                CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall"),
-                CodeInstruction.StoreField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass12_1", BindingFlags.NonPublic), "designation"),
-                CodeInstruction.LoadArgument(0),
-            };
-            codes.InsertRange(pos, addCodes);
+            int pos = codes.FindIndex(c => c.opcode == OpCodes.Ldnull);
+            codes[pos] = CodeInstruction.LoadField(typeof(DesignationDefOf), nameof(DesignationDefOf.Deconstruct));
+            codes[pos] = CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall");
+            codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass12_0", BindingFlags.NonPublic), "__instance"));
+            codes.Insert(pos, CodeInstruction.LoadArgument(0));
 
             pos = codes.FindIndex(c => c.opcode.Equals(OpCodes.Stloc_S) && (c.operand as LocalBuilder).LocalIndex.Equals(9)) + 1;
-            addCodes = new List<CodeInstruction>()
+            var addCodes = new List<CodeInstruction>()
             {
                 CodeInstruction.LoadLocal(9),
                 new CodeInstruction(OpCodes.Ldc_I4_1),
@@ -62,10 +56,7 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
 
         public static DesignationDef IsReinstall(JobDriver __instance)
         {
-            if (__instance.GetType() == typeof(JobDriver_Uninstall)) return DesignationDefOf.Haul;
             if (__instance is JobDriver_HaulToContainer) return DesignationDefOf.Haul;
-            if (__instance is JobDriver_Mine) return DesignationDefOf.Mine;
-            if (__instance is JobDriver_Deconstruct) return DesignationDefOf.Deconstruct;
             return null;
         }
     }

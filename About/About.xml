@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Multi-Reinstall</name>
-  <packageId>oels.multireinstall</packageId>
+  <packageId>oels.multireinstallexperimental</packageId>
   <author>OELS</author>
   <description>まとめて再展開できるようにするMODです。
 </description>

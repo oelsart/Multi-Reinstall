@@ -34,20 +34,13 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
         public static IEnumerable<CodeInstruction> Transpiler (IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> codes = instructions.ToList();
-            int pos = codes.FindIndex(c => c.opcode == OpCodes.Stfld && (c.operand as FieldInfo).FieldType == typeof(DesignationDef)) + 2;
-
-            var addCodes = new List<CodeInstruction>()
-            {
-                new CodeInstruction(OpCodes.Ldarg_0),
-                CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass11_0", BindingFlags.NonPublic), "__instance"),
-                CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall"),
-                CodeInstruction.StoreField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass11_1", BindingFlags.NonPublic), "designation"),
-                new CodeInstruction(OpCodes.Ldarg_0),
-            };
-            codes.InsertRange(pos, addCodes);
+            int pos = codes.FindIndex(c => c.opcode == OpCodes.Ldnull);
+            codes[pos] = CodeInstruction.Call(typeof(SmartDeconstructMod_CheckForRoofsBeforeJob_Patch), "IsReinstall");
+            codes.Insert(pos, CodeInstruction.LoadField(typeof(SmartDeconstructMod).GetNestedType("<>c__DisplayClass11_0", BindingFlags.NonPublic), "__instance"));
+            codes.Insert(pos, new CodeInstruction(OpCodes.Ldarg_0));
 
             pos = codes.FindLastIndex(c => c.opcode.Equals(OpCodes.Call) && (c.operand as MethodInfo).DeclaringType.Equals(typeof(JobMaker))) + 2;
-            addCodes = new List<CodeInstruction>()
+            var addCodes = new List<CodeInstruction>()
             {
                 new CodeInstruction(OpCodes.Ldloc_3),
                 new CodeInstruction(OpCodes.Ldc_I4_1),
@@ -60,10 +53,7 @@ namespace MultiReinstall.SmarterDeconstructionAndMiningPatch
 
         public static DesignationDef IsReinstall(JobDriver __instance)
         {
-            if (__instance.GetType() == typeof(JobDriver_Uninstall)) return DesignationDefOf.Uninstall;
-            if (__instance is JobDriver_HaulToContainer) return DesignationDefOf.Uninstall;
-            if (__instance is JobDriver_Mine) return DesignationDefOf.Mine;
-            if (__instance is JobDriver_Deconstruct) return DesignationDefOf.Deconstruct;
+            if (__instance is JobDriver_HaulToContainer) return DesignationDefOf.Haul;
             return null;
         }
     }

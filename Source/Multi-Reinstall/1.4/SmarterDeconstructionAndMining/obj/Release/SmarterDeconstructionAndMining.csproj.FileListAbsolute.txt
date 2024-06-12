@@ -1,0 +1,7 @@
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\1.4\SmarterDeconstructionAndMining\Assemblies\SmarterDeconstructionAndMiningPatch.dll
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\SmarterDeconstructionAndMining\obj\Release\SmarterDeconstructionAndMining.csproj.AssemblyReference.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\SmarterDeconstructionAndMining\obj\Release\SmarterDeconstructionAndMining.csproj.CoreCompileInputs.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\SmarterDeconstructionAndMining\obj\Release\SmarterDeconstructionAndMiningPatch.dll
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\1.4\SmarterDeconstructionAndMining\obj\Release\SmarterDeconstructionAndMining.csproj.AssemblyReference.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\1.4\SmarterDeconstructionAndMining\obj\Release\SmarterDeconstructionAndMining.csproj.CoreCompileInputs.cache
+E:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Multi-ReinstallExperimental\Source\Multi-Reinstall\1.4\SmarterDeconstructionAndMining\obj\Release\SmarterDeconstructionAndMiningPatch.dll

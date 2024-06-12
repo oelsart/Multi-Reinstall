@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-Reinstall", "Multi-Reinstall\Multi-Reinstall.csproj", "{C376CDFE-78D1-4662-9B30-ACDD4E9D2388}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-Reinstall", "1.5\Multi-Reinstall\Multi-Reinstall.csproj", "{C376CDFE-78D1-4662-9B30-ACDD4E9D2388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmarterDeconstructionAndMining", "SmarterDeconstructionAndMining\SmarterDeconstructionAndMining.csproj", "{E46AE7A2-A4EB-4479-A479-92A4C748B9D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmarterDeconstructionAndMining", "1.5\SmarterDeconstructionAndMining\SmarterDeconstructionAndMining.csproj", "{E46AE7A2-A4EB-4479-A479-92A4C748B9D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

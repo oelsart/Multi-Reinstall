@@ -21,8 +21,6 @@ namespace MultiReinstall
 
         public override bool Visible => BuildingsToReinstall.Count() > 1;
 
-        public override int DraggableDimensions => 2;
-
         private List<IntVec3> OffsetPos
         {
             get
@@ -45,8 +43,8 @@ namespace MultiReinstall
                         }
                         else
                         {
-                            pos.x -= (globalRot.AsInt - 2) % 2 * (building.def.Size.x - 1) % 2;
-                            pos.z += (globalRot.AsInt - 1) % 2 * (building.def.Size.z - 1) % 2;
+                            pos.x += ((globalRot.AsInt + building.Rotation.AsInt) % 4 - 1) % 2 * (building.def.Size.x - 1) % 2;
+                            pos.z -= ((globalRot.AsInt + 1 + building.Rotation.AsInt) % 4 - 1) % 2 * (building.def.Size.x - 1) % 2;
                         }
                     }
                     return pos;

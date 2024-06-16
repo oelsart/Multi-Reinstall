@@ -111,6 +111,11 @@ namespace MultiReinstall
             Find.DesignatorManager.Deselect();
         }
 
+        public override void SelectedProcessInput(Event ev)
+        {
+            this.HandleRotationShortcuts();
+        }
+
         public override void SelectedUpdate()
         {
             IntVec3 center = UI.MouseCell();
@@ -135,8 +140,6 @@ namespace MultiReinstall
         public override void DoExtraGuiControls(float leftX, float bottomY)
         {
             Rect winRect = new Rect(leftX, bottomY - 120f, 200f, 120f);
-            this.HandleRotationShortcuts();
-
             Find.WindowStack.ImmediateWindow(73095, winRect, WindowLayer.GameUI, delegate
             {
                 RotationDirection rotationDirection = RotationDirection.None;

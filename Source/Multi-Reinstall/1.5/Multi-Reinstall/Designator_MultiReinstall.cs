@@ -21,8 +21,6 @@ namespace MultiReinstall
 
         public override bool Visible => BuildingsToReinstall.Count() > 1;
 
-        public override int DraggableDimensions => 2;
-
         private List<IntVec3> OffsetPos
         {
             get
@@ -45,8 +43,8 @@ namespace MultiReinstall
                         }
                         else
                         {
-                            pos.x -= (globalRot.AsInt - 2) % 2 * (building.def.Size.x - 1) % 2;
-                            pos.z += (globalRot.AsInt - 1) % 2 * (building.def.Size.z - 1) % 2;
+                            pos.x += ((globalRot.AsInt + building.Rotation.AsInt) % 4 - 1) % 2 * (building.def.Size.x - 1) % 2;
+                            pos.z -= ((globalRot.AsInt + 1 + building.Rotation.AsInt) % 4 - 1) % 2 * (building.def.Size.x - 1) % 2;
                         }
                     }
                     return pos;
@@ -111,6 +109,11 @@ namespace MultiReinstall
             Find.DesignatorManager.Deselect();
         }
 
+        public override void SelectedProcessInput(Event ev)
+        {
+            this.HandleRotationShortcuts();
+        }
+
         public override void SelectedUpdate()
         {
             IntVec3 center = UI.MouseCell();
@@ -135,8 +138,6 @@ namespace MultiReinstall
         public override void DoExtraGuiControls(float leftX, float bottomY)
         {
             Rect winRect = new Rect(leftX, bottomY - 120f, 200f, 120f);
-            this.HandleRotationShortcuts();
-
             Find.WindowStack.ImmediateWindow(73095, winRect, WindowLayer.GameUI, delegate
             {
                 RotationDirection rotationDirection = RotationDirection.None;

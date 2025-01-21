@@ -6,16 +6,19 @@ using RimWorld;
 using Verse.Sound;
 using Verse.Steam;
 using System.Reflection;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System;
 
 namespace MultiReinstall
 {
     public class Designator_MultiReinstall : Designator
     {
-        public IEnumerable<Building> BuildingsToReinstall
+        public List<Building> BuildingsToReinstall
         {
             get
             {
-                return Find.Selector.SelectedObjects.Select(o => o as Building).Where(b => b?.def.Minifiable ?? false);
+                return Find.Selector.SelectedObjects.Select(o => o as Building).Where(b => b?.def.Minifiable ?? false).ToList();
             }
         }
 
@@ -100,11 +103,11 @@ namespace MultiReinstall
 
         public override void DesignateSingleCell(IntVec3 c)
         {
-            for (var i = 0; i < cachedBuildings.Count(); i++)
+            for (var i = 0; i < cachedBuildings.Count; i++)
             {
-                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + offsetPositions[i], Map, flippedRotations[i], Faction.OfPlayer);
-                if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining") && cachedBuildings.ElementAt(i).def.IsEdifice())
-                    Map.designationManager.AddDesignation(new Designation(cachedBuildings.ElementAt(i), DesignationDefOf.Haul));
+                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings[i], c + offsetPositions[i], Map, flippedRotations[i], Faction.OfPlayer);
+                if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining") && cachedBuildings[i].def.IsEdifice())
+                    Map.designationManager.AddDesignation(new Designation(cachedBuildings[i], DesignationDefOf.Haul));
             }
             Find.DesignatorManager.Deselect();
         }
@@ -121,10 +124,10 @@ namespace MultiReinstall
 
             offsetPositions = OffsetPos;
             flippedRotations = FlipRot;
-            for (var i = 0; i < cachedBuildings.Count(); i++)
+            for (var i = 0; i < cachedBuildings.Count; i++)
             {
                 Color ghostCol = Designator_Place.CanPlaceColor;
-                var building = cachedBuildings.ElementAt(i);
+                var building = cachedBuildings[i];
                 AcceptanceReport result;
                 if ((result = Multi_GenConstruct.CanPlaceBlueprintAt(building.def, offsetPositions.Select((p, j) => center + p), flippedRotations, Map, false, cachedBuildings, building)) == AcceptanceReport.WasRejected)
                 {
@@ -215,7 +218,7 @@ namespace MultiReinstall
             globalRot = globalRot.Rotated(rotDir);
         }
 
-        public IEnumerable<Building> cachedBuildings;
+        public List<Building> cachedBuildings;
 
         private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 

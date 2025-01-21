@@ -30,9 +30,9 @@ namespace MultiReinstall
             return blueprint_Install;
         }
 
-        public static AcceptanceReport CanPlaceBlueprintAt(BuildableDef entDef, IEnumerable<IntVec3> centerList, IEnumerable<Rot4> rotList, Map map, bool godMode = false, IEnumerable<Thing> thingToIgnoreList = null, Thing thing = null, ThingDef stuffDef = null, bool ignoreEdgeArea = false, bool ignoreInteractionSpots = false, bool ignoreClearableFreeBuildings = false)
+        public static AcceptanceReport CanPlaceBlueprintAt(BuildableDef entDef, IEnumerable<IntVec3> centerList, IEnumerable<Rot4> rotList, Map map, bool godMode = false, List<Building> thingToIgnoreList = null, Thing thing = null, ThingDef stuffDef = null, bool ignoreEdgeArea = false, bool ignoreInteractionSpots = false, bool ignoreClearableFreeBuildings = false)
         {
-            var pos = thingToIgnoreList.FirstIndexOf(t => t == thing);
+            var pos = thingToIgnoreList.FindIndex(t => t == thing);
             var center = centerList.ElementAt(pos);
             var rot = rotList.ElementAt(pos);
             if (thing.Position == center && thing.Rotation == rot) return new AcceptanceReport("IdenticalThingExists".Translate());
@@ -204,7 +204,7 @@ namespace MultiReinstall
                     for (int n = 0; n < entDef.PlaceWorkers.Count; n++)
                     {
                         AcceptanceReport result;
-                        result = thingToIgnoreList.Select(t => entDef.PlaceWorkers[n].AllowsPlacing(entDef, center, rot, map, t, thing)).FirstOrFallback(a => a == AcceptanceReport.WasRejected, AcceptanceReport.WasAccepted);
+                        result = entDef.PlaceWorkers[n].AllowsPlacing(entDef, center, rot, map, thing, thing);
                         if (!result.Accepted)
                         {
                             return result;

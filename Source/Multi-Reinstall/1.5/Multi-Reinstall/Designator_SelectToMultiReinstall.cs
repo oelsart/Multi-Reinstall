@@ -8,13 +8,7 @@ namespace MultiReinstall
 {
     public class Designator_SelectToMultiReinstall : Designator
     {
-        public override int DraggableDimensions
-        {
-            get
-            {
-                return 2;
-            }
-        }
+        public override DrawStyleCategoryDef DrawStyleCategory => DrawStyleCategoryDefOf.FilledRectangle;
 
         public Designator_SelectToMultiReinstall()
         {

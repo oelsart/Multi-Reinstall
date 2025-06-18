@@ -10,13 +10,15 @@ namespace MultiReinstall
 {
     public static class Multi_GenConstruct
     {
+        public static FastInvokeHandler SetBuildingToReinstall = MethodInvoker.GetHandler(AccessTools.Method(typeof(Blueprint_Install), "SetBuildingToReinstall"));
+
         public static Blueprint_InstallMulti PlaceBlueprintForReinstall(Building buildingToReinstall, IntVec3 center, Map map, Rot4 rotation, Faction faction, bool sendBPSpawnedSignal = true)
         {
             Blueprint_InstallMulti blueprint_Install = new Blueprint_InstallMulti();
             blueprint_Install.def = buildingToReinstall.def.installBlueprintDef;
             blueprint_Install.PostMake();
             blueprint_Install.PostPostMake();
-            AccessTools.Method(typeof(Blueprint_InstallMulti), "SetBuildingToReinstall").Invoke(blueprint_Install, BindingFlags.NonPublic, null, new object[] { buildingToReinstall }, null);
+            SetBuildingToReinstall(blueprint_Install, buildingToReinstall);
             blueprint_Install.SetFactionDirect(faction);
             GenSpawn.Spawn(blueprint_Install, center, map, rotation, WipeMode.Vanish, false, false);
             if (faction != null && sendBPSpawnedSignal)
@@ -152,8 +154,7 @@ namespace MultiReinstall
                     }
                 }
             }
-            TerrainDef terrainDef = entDef as TerrainDef;
-            if (terrainDef != null)
+            if (entDef is TerrainDef terrainDef)
             {
                 if (map.terrainGrid.TerrainAt(center) == terrainDef)
                 {
@@ -187,7 +188,7 @@ namespace MultiReinstall
                         {
                             Thing thing4 = thingList[m];
                             Building building;
-                            if (!thingToIgnoreList.Contains(thing4) && ((building = (thing4 as Building)) == null || !building.IsClearableFreeBuilding || !ignoreClearableFreeBuildings) && !GenConstruct.CanPlaceBlueprintOver(entDef, thing4.def))
+                            if (!thingToIgnoreList.Contains(thing4) && ((building = thing4 as Building) == null || !building.IsClearableFreeBuilding || !ignoreClearableFreeBuildings) && !GenConstruct.CanPlaceBlueprintOver(entDef, thing4.def))
                             {
                                 return new AcceptanceReport("SpaceAlreadyOccupied".Translate());
                             }

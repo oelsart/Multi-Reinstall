@@ -206,7 +206,7 @@ namespace MultiReinstall
             }
         }
 
-        public override void Rotate(RotationDirection rotDir)
+        private void Rotate(RotationDirection rotDir)
         {
             for (var i = 0; i < cachedBuildings.Count; i++)
             {

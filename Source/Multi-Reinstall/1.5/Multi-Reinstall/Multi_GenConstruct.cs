@@ -206,7 +206,7 @@ namespace MultiReinstall
                         }
                         else
                         {
-                            result = thingToIgnoreList.Select(t => entDef.PlaceWorkers[n].AllowsPlacing(entDef, center, rot, map, t, thing)).FirstOrFallback(a => a == AcceptanceReport.WasRejected, AcceptanceReport.WasAccepted);
+                            result = entDef.PlaceWorkers[n].AllowsPlacing(entDef, center, rot, map, thing, thing);
                         }
                         if (!result.Accepted)
                         {

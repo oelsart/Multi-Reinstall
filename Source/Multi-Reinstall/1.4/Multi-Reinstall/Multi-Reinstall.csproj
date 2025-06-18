@@ -17,11 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/Multi-Reinstall/Multi-Reinstall.csproj
     <OutputPath>..\..\..\1.5\Assemblies\</OutputPath>
-========
-    <OutputPath>..\..\..\..\1.4\Assemblies\</OutputPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/Multi-Reinstall/Multi-Reinstall.csproj
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,11 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/Multi-Reinstall/Multi-Reinstall.csproj
     <OutputPath>..\..\..\..\1.5\Assemblies\</OutputPath>
-========
-    <OutputPath>..\..\..\..\1.4\Assemblies\</OutputPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/Multi-Reinstall/Multi-Reinstall.csproj
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,20 +34,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/Multi-Reinstall/Multi-Reinstall.csproj
       <HintPath>..\..\..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=1.5.8890.16364, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\1.5\Assembly-CSharp.dll</HintPath>
-========
-      <HintPath>..\..\..\..\..\..\..\..\workshop\content\294100\2009463077\1.4\Assemblies\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\1.4\Assembly-CSharp.dll</HintPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/Multi-Reinstall/Multi-Reinstall.csproj
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -76,13 +60,6 @@
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-<<<<<<<< HEAD:Source/Multi-Reinstall/1.5/Multi-Reinstall/Multi-Reinstall.csproj
-========
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="WallLight">
-      <HintPath>..\..\..\..\..\..\..\..\workshop\content\294100\1423699208\1.4\Assemblies\WallLight.dll</HintPath>
->>>>>>>> 1.4:Source/Multi-Reinstall/1.4/Multi-Reinstall/Multi-Reinstall.csproj
       <Private>False</Private>
     </Reference>
   </ItemGroup>

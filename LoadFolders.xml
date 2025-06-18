@@ -8,6 +8,5 @@
   <v1.5>
     <li>/</li>
     <li>1.5</li>
-    <li IfModActive="Mlie.SmarterDeconstructionAndMining">1.5/SmarterDeconstructionAndMining</li>
   </v1.5>
 </loadFolders>

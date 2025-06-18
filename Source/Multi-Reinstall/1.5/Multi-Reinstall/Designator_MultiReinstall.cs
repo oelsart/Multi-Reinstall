@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using HarmonyLib;
+using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using RimWorld;
 using Verse.Sound;
 using Verse.Steam;
-using System.Reflection;
 
 namespace MultiReinstall
 {
@@ -21,7 +21,7 @@ namespace MultiReinstall
 
         public override bool Visible => BuildingsToReinstall.Count() > 1;
 
-        private List<IntVec3> OffsetPos
+        private IEnumerable<IntVec3> OffsetPos
         {
             get
             {
@@ -48,22 +48,22 @@ namespace MultiReinstall
                         }
                     }
                     return pos;
-                }).ToList();
+                });
             }
         }
 
-        private List<Rot4> FlipRot
+        private IEnumerable<Rot4> FlipRot
         {
             get
             {
                 return cachedBuildingRotations.Select((rot, i) =>
                 {
-                    if (Event.current.shift && rot.IsHorizontal && cachedBuildings.ElementAt(i).def.rotatable)
+                    if (Event.current.shift && rot.IsHorizontal && cachedBuildings[i].def.rotatable)
                     {
                         rot = rot.Opposite;
                     }
                     return rot;
-                }).ToList();
+                });
             }
         }
 
@@ -80,7 +80,7 @@ namespace MultiReinstall
 
         public override void ProcessInput(Event ev)
         {
-            this.cachedBuildings = this.BuildingsToReinstall;
+            this.cachedBuildings = this.BuildingsToReinstall.ToList();
             var xList = cachedBuildings.Select(b => b.Position.x);
             var zList = cachedBuildings.Select(b => b.Position.z);
             var center = new IntVec3((xList.Min() + xList.Max()) / 2, 0, (zList.Min() + zList.Max()) / 2);
@@ -100,11 +100,11 @@ namespace MultiReinstall
 
         public override void DesignateSingleCell(IntVec3 c)
         {
-            for (var i = 0; i < cachedBuildings.Count(); i++)
+            for (var i = 0; i < cachedBuildings.Count; i++)
             {
-                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings.ElementAt(i), c + offsetPositions[i], Map, flippedRotations[i], Faction.OfPlayer);
-                if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining") && cachedBuildings.ElementAt(i).def.IsEdifice())
-                    Map.designationManager.AddDesignation(new Designation(cachedBuildings.ElementAt(i), DesignationDefOf.Haul));
+                Multi_GenConstruct.PlaceBlueprintForReinstall(cachedBuildings[i], offsetPositions[i], Map, flippedRotations[i], Faction.OfPlayer);
+                if (ModsConfig.IsActive("erdelf.MinifyEverything") && ModsConfig.IsActive("Mlie.SmarterDeconstructionAndMining") && cachedBuildings[i].def.IsEdifice())
+                    Map.designationManager.AddDesignation(new Designation(cachedBuildings[i], DesignationDefOf.Haul));
             }
             Find.DesignatorManager.Deselect();
         }
@@ -119,19 +119,21 @@ namespace MultiReinstall
             IntVec3 center = UI.MouseCell();
             canDesignate = AcceptanceReport.WasAccepted;
 
-            offsetPositions = OffsetPos;
-            flippedRotations = FlipRot;
-            for (var i = 0; i < cachedBuildings.Count(); i++)
+            offsetPositions.Clear();
+            offsetPositions.AddRange(OffsetPos.Select(p => center + p));
+            flippedRotations.Clear();
+            flippedRotations.AddRange(FlipRot);
+            for (var i = 0; i < cachedBuildings.Count; i++)
             {
                 Color ghostCol = Designator_Place.CanPlaceColor;
-                var building = cachedBuildings.ElementAt(i);
+                var building = cachedBuildings[i];
                 AcceptanceReport result;
-                if ((result = Multi_GenConstruct.CanPlaceBlueprintAt(building.def, offsetPositions.Select((p, j) => center + p), flippedRotations, Map, false, cachedBuildings, building)) == AcceptanceReport.WasRejected)
+                if ((result = Multi_GenConstruct.CanPlaceBlueprintAt(building.def, offsetPositions, flippedRotations, Map, false, cachedBuildings, building)) == AcceptanceReport.WasRejected)
                 {
                     ghostCol = Designator_Place.CannotPlaceColor;
                     canDesignate = result;
                 }
-                GhostDrawer.DrawGhostThing(center + offsetPositions[i], flippedRotations[i], building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
+                GhostDrawer.DrawGhostThing(offsetPositions[i], flippedRotations[i], building.def, null, ghostCol, AltitudeLayer.Blueprint, building);
             }
         }
 
@@ -206,16 +208,18 @@ namespace MultiReinstall
 
         public override void Rotate(RotationDirection rotDir)
         {
-            cachedBuildingPositions = cachedBuildingPositions.Select((p, i) => p.RotatedBy(rotDir)).ToList();
-            cachedBuildingRotations = cachedBuildingRotations.Select((r, i) =>
+            for (var i = 0; i < cachedBuildings.Count; i++)
             {
-                if (cachedBuildings.ElementAt(i).def.rotatable) return r.Rotated(rotDir);
-                return r;
-            }).ToList();
+                cachedBuildingPositions[i] = cachedBuildingPositions[i].RotatedBy(rotDir);
+                if (cachedBuildings[i].def.rotatable)
+                {
+                    cachedBuildingRotations[i] = cachedBuildingRotations[i].Rotated(rotDir);
+                }
+            }
             globalRot = globalRot.Rotated(rotDir);
         }
 
-        public IEnumerable<Building> cachedBuildings;
+        public List<Building> cachedBuildings;
 
         private List<IntVec3> cachedBuildingPositions = new List<IntVec3>();
 
@@ -223,7 +227,7 @@ namespace MultiReinstall
 
         private List<Rot4> cachedBuildingRotations = new List<Rot4>();
 
-        private List<Rot4> flippedRotations = new List<Rot4>();
+        private readonly List<Rot4> flippedRotations = new List<Rot4>();
 
         private Rot4 globalRot = Rot4.North;
 

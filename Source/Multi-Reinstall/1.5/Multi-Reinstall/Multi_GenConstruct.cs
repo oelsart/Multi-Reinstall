@@ -10,13 +10,13 @@ namespace MultiReinstall
 {
     public static class Multi_GenConstruct
     {
-        public static Blueprint_Install2 PlaceBlueprintForReinstall(Building buildingToReinstall, IntVec3 center, Map map, Rot4 rotation, Faction faction, bool sendBPSpawnedSignal = true)
+        public static Blueprint_InstallMulti PlaceBlueprintForReinstall(Building buildingToReinstall, IntVec3 center, Map map, Rot4 rotation, Faction faction, bool sendBPSpawnedSignal = true)
         {
-            Blueprint_Install2 blueprint_Install = new Blueprint_Install2();
+            Blueprint_InstallMulti blueprint_Install = new Blueprint_InstallMulti();
             blueprint_Install.def = buildingToReinstall.def.installBlueprintDef;
             blueprint_Install.PostMake();
             blueprint_Install.PostPostMake();
-            AccessTools.Method(typeof(Blueprint_Install2), "SetBuildingToReinstall").Invoke(blueprint_Install, BindingFlags.NonPublic, null, new object[] { buildingToReinstall }, null);
+            AccessTools.Method(typeof(Blueprint_InstallMulti), "SetBuildingToReinstall").Invoke(blueprint_Install, BindingFlags.NonPublic, null, new object[] { buildingToReinstall }, null);
             blueprint_Install.SetFactionDirect(faction);
             GenSpawn.Spawn(blueprint_Install, center, map, rotation, WipeMode.Vanish, false, false);
             if (faction != null && sendBPSpawnedSignal)
@@ -25,11 +25,11 @@ namespace MultiReinstall
             }
             return blueprint_Install;
         }
-        public static AcceptanceReport CanPlaceBlueprintAt(BuildableDef entDef, IEnumerable<IntVec3> centerList, IEnumerable<Rot4> rotList, Map map, bool godMode = false, IEnumerable<Thing> thingToIgnoreList = null, Thing thing = null, ThingDef stuffDef = null, bool ignoreEdgeArea = false, bool ignoreInteractionSpots = false, bool ignoreClearableFreeBuildings = false)
+        public static AcceptanceReport CanPlaceBlueprintAt(BuildableDef entDef, List<IntVec3> centerList, List<Rot4> rotList, Map map, bool godMode = false, List<Building> thingToIgnoreList = null, Thing thing = null, ThingDef stuffDef = null, bool ignoreEdgeArea = false, bool ignoreInteractionSpots = false, bool ignoreClearableFreeBuildings = false)
         {
-            var pos = thingToIgnoreList.FirstIndexOf(t => t == thing);
-            var center = centerList.ElementAt(pos);
-            var rot = rotList.ElementAt(pos);
+            var pos = thingToIgnoreList.FindIndex(t => t == thing);
+            var center = centerList[pos];
+            var rot = rotList[pos];
             if (thing.Position == center && thing.Rotation == rot) return new AcceptanceReport("IdenticalThingExists".Translate());
 
             CellRect cellRect = GenAdj.OccupiedRect(center, rot, entDef.Size);

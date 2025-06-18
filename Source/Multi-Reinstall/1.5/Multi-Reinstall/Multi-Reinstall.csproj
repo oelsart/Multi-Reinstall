@@ -64,7 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blueprint_Install2.cs" />
+    <Compile Include="Blueprint_InstallMulti.cs" />
     <Compile Include="Designator_MultiReinstall.cs" />
     <Compile Include="Designator_SelectToMultiReinstall.cs" />
     <Compile Include="HarmonyPatches.cs" />

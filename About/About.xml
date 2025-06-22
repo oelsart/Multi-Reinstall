@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Multi-Reinstall</name>
-  <packageId>oels.multireinstallexperimental</packageId>
+  <packageId>oels.multireinstall</packageId>
   <author>OELS</author>
   <description>まとめて再展開できるようにするMODです。
   This mod allows multiple pieces of furniture to be reinstalled at the same time.
 </description>
-  <url></url>
+  <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3266494262</url>
 
   <supportedVersions>
     <li>1.4</li>

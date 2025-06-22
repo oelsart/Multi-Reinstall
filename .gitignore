@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Source/Multi-Reinstall/1.5/Multi-Reinstall/obj

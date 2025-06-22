@@ -97,12 +97,8 @@ namespace MultiReinstall
         {
             return AccessTools.FindIncludingInnerTypes(AccessTools.TypeByName("SmartDeconstruct.SmartDeconstructMod"), t =>
             {
-                Log.Message(t);
                 var fields = t.GetDeclaredFields();
                 if ((field = fields.FirstOrDefault(f => f.FieldType == typeof(JobDriver) && f.Name == "__instance")) == null) return null;
-                if (!fields.Any(f => f.FieldType == typeof(bool) && f.Name == "isMine")) return null;
-                if (!fields.Any(f => f.FieldType == typeof(bool) && f.Name == "isDecon")) return null;
-                if (!fields.Any(f => f.FieldType == typeof(Action))) return null;
                 return t.GetDeclaredMethods().FirstOrDefault(m => m.Name.Contains("<CheckForRoofsBeforeJob>b__0"));
             });
         }
